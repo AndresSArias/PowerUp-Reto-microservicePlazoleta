@@ -1,11 +1,8 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.extern.apachecommons.CommonsLog;
 
 @Entity
 @Table(name = "restaurants")
@@ -15,6 +12,26 @@ import lombok.Setter;
 @Setter
 public class RestaurantEntity {
 
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
+    private String nombre;
+
+    @Column(nullable = false)
+    private String direccion;
+
+    @Column(nullable = false)
+    private Long idPropietario;
+
+    @Column (nullable = false, length = 13)
+    private String phone;
+
+    @Column (nullable = false)
+    private String urlLogo;
+
+    @Column (nullable = false, unique = true)
+    private String nit;
 
 }

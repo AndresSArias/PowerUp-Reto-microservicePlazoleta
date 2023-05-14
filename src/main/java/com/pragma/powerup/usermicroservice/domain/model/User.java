@@ -1,28 +1,30 @@
 package com.pragma.powerup.usermicroservice.domain.model;
 
+import java.time.LocalDate;
+
+
 public class User {
+
     private Long id;
     private String name;
-    private String surname;
-    private String mail;
+    private String lastName;
+    private String numberDocument;
     private String phone;
-    private String address;
-    private String idDniType;
-    private String dniNumber;
-    private String idPersonType;
+    private LocalDate dateBirth;
+    private String email;
     private String password;
+    private Role role;
 
-    public User(Long id, String name, String surname, String mail, String phone, String address, String idDniType, String dniNumber, String idPersonType, String password) {
+    public User(Long id, String name, String lastName, String numberDocument, String phone, LocalDate dateBirth, String email, String password, Role role) {
         this.id = id;
         this.name = name;
-        this.surname = surname;
-        this.mail = mail;
+        this.lastName = lastName;
+        this.numberDocument = numberDocument;
         this.phone = phone;
-        this.address = address;
-        this.idDniType = idDniType;
-        this.dniNumber = dniNumber;
-        this.idPersonType = idPersonType;
+        this.dateBirth = dateBirth;
+        this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -41,20 +43,20 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getMail() {
-        return mail;
+    public String getNumberDocument() {
+        return numberDocument;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setNumber_document(String number_document) {
+        this.numberDocument = number_document;
     }
 
     public String getPhone() {
@@ -65,36 +67,20 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
+    public LocalDate getDateBirth() {
+        return dateBirth;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDateBirth(LocalDate dateBirth) {
+        this.dateBirth = dateBirth;
     }
 
-    public String getIdDniType() {
-        return idDniType;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIdDniType(String idDniType) {
-        this.idDniType = idDniType;
-    }
-
-    public String getDniNumber() {
-        return dniNumber;
-    }
-
-    public void setDniNumber(String dniNumber) {
-        this.dniNumber = dniNumber;
-    }
-
-    public String getIdPersonType() {
-        return idPersonType;
-    }
-
-    public void setIdPersonType(String idPersonType) {
-        this.idPersonType = idPersonType;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -103,5 +89,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

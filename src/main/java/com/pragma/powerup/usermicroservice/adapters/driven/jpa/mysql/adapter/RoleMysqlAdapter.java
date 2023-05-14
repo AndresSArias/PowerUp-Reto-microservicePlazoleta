@@ -7,6 +7,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRo
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import lombok.RequiredArgsConstructor;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -21,5 +22,13 @@ public class RoleMysqlAdapter implements IRolePersistencePort {
             throw new NoDataFoundException();
         }
         return roleEntityMapper.toRoleList(roleEntityList);
+    }
+    @Override
+    public Role getRol (Long id) {
+        Optional<RoleEntity> roleEntity = roleRepository.findById(id);
+        if (!roleEntity.isPresent()){
+            throw new NoDataFoundException();
+        }
+        return roleEntityMapper.toRole(roleEntity.get());
     }
 }

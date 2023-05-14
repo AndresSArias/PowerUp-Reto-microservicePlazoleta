@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.LoginRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.JwtResponseDto;
@@ -21,6 +21,7 @@ import java.text.ParseException;
 public class AuthController {
 
     private final IAuthHandler authHandler;
+
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {

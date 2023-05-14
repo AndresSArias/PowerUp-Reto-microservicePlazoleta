@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.mapper;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.User;
@@ -12,6 +12,8 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IUserResponseMapper {
-    UserResponseDto userToPersonResponse(User user);
-    List<UserResponseDto> userListToPersonResponseList(List<User> userList);
+
+    UserResponseDto toResponse(User user);
+
+    List<UserResponseDto> toResponseList(List<User> userList);
 }

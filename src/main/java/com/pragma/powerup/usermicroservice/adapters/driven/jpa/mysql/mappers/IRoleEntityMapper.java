@@ -11,5 +11,8 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IRoleEntityMapper {
+
     List<Role> toRoleList(List<RoleEntity> roleEntityList);
+
+    Role toRole (RoleEntity role);
 }

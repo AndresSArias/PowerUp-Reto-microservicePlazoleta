@@ -1,9 +1,9 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,14 +21,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String documentID) throws UsernameNotFoundException {
-        UserEntity usuario = userRepository.findByDniNumber(documentID).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        if (usuario.getRole() == null) {
+        UserEntity usuario =  userRepository.findByNumberDocument(documentID).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        List<UserEntity> userEntity = userRepository.findAllById(usuario.getId());
+        if (userEntity.isEmpty()) {
             throw new UsernameNotFoundException("User not found with documentID: " + documentID);
         }
 
         List<RoleEntity> roles = new ArrayList<>();
-        roles.add(usuario.getRole());
+
+        for (UserEntity user : userEntity) {
+            roles.add(user.getRoleEntity());
+        }
 
         return PrincipalUser.build(usuario, roles);
     }
