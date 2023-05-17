@@ -36,6 +36,7 @@ public class JwtProvider {
     public String generateToken(Authentication authentication) {
         PrincipalUser usuarioPrincipal = (PrincipalUser) authentication.getPrincipal();
         List<String> roles = usuarioPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
         return Jwts.builder()
                 .setSubject(usuarioPrincipal.getUsername())
                 .claim("roles", roles)

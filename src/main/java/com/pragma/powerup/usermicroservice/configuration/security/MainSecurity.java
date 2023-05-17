@@ -1,6 +1,6 @@
 package com.pragma.powerup.usermicroservice.configuration.security;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserDetailsServiceImpl;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl.UserDetailsServiceImpl;
 import com.pragma.powerup.usermicroservice.configuration.security.jwt.JwtEntryPoint;
 import com.pragma.powerup.usermicroservice.configuration.security.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;

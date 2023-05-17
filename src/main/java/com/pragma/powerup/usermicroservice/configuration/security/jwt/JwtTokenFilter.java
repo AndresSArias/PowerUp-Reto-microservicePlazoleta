@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.configuration.security.jwt;
 
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserDetailsServiceImpl;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
