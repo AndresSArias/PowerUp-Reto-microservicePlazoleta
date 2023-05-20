@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,8 +10,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -19,10 +23,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserClient userClient;
 
-    @Override
-    public UserDetails loadUserByUsername(String documentID) throws UsernameNotFoundException {
 
-        AuthUserResponse usuario = userClient.getUserByDocument(documentID);
+    public UserDetails loadUserByUsername(String documentID, String token) throws UsernameNotFoundException {
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", "Bearer " + token);
+        AuthUserResponse usuario = null;
+
+        try{
+            usuario = userClient.getUserByDocument(documentID, headers);
+        }catch (Exception e){
+            throw new NoAllowedUserException();
+        }
+
 
         if (usuario == null){
             throw  new UsernameNotFoundException("Usuario no encontrado");
@@ -34,5 +47,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
         return PrincipalUser.build(usuario, roles);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }

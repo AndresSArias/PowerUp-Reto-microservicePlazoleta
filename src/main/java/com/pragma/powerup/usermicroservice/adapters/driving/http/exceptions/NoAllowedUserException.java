@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions;
 
-public class NoFormatDataException extends RuntimeException{
-    public NoFormatDataException() {
+public class NoAllowedUserException extends RuntimeException{
+    public NoAllowedUserException(){
         super();
     }
 }

@@ -1,7 +1,6 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoFormatDataException;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -41,59 +40,10 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, WRONG_CREDENTIALS_MESSAGE));
     }
 
-    @ExceptionHandler(NoDataFoundException.class)
-    public ResponseEntity<Map<String, String>> handleNoDataFoundException(NoDataFoundException noDataFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_DATA_FOUND_MESSAGE));
+    @ExceptionHandler(NoAllowedUserException.class)
+    public ResponseEntity<Map<String,String>> handleNoAllowedUserException (NoAllowedUserException noAllowedUserException){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_ALLOWED_USER_MESSAGE));
     }
 
-    @ExceptionHandler(NoFormatDataException.class)
-    public ResponseEntity<Map<String,String>> handleNoFormatDataException (NoFormatDataException noFormatDataException){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_FORMAT_DATE_MESSAGE));
-    }
-
-    @ExceptionHandler(PersonAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> handlePersonAlreadyExistsException(
-            PersonAlreadyExistsException personAlreadyExistsException) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_ALREADY_EXISTS_MESSAGE));
-    }
-
-    @ExceptionHandler(MailAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> handleMailAlreadyExistsException(
-            MailAlreadyExistsException mailAlreadyExistsException) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, MAIL_ALREADY_EXISTS_MESSAGE));
-    }
-    @ExceptionHandler(PersonNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
-            PersonNotFoundException personNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_NOT_FOUND_MESSAGE));
-    }
-    @ExceptionHandler(RoleNotAllowedForCreationException.class)
-    public ResponseEntity<Map<String, String>> handleRoleNotAllowedForCreationException(
-            RoleNotAllowedForCreationException roleNotAllowedForCreationException) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_ALLOWED_MESSAGE));
-    }
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> handleUserAlreadyExistsException(
-            UserAlreadyExistsException userAlreadyExistsException) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_ALREADY_EXISTS_MESSAGE));
-    }
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
-            UserNotFoundException userNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_NOT_FOUND_MESSAGE));
-    }
-    @ExceptionHandler(RoleNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleRoleNotFoundException(
-            RoleNotFoundException roleNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_FOUND_MESSAGE));
-    }
 }

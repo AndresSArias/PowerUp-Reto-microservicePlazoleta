@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLES;
+
 @Component
 public class JwtProvider {
     private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
@@ -69,24 +71,19 @@ public class JwtProvider {
     }
 
     public String refreshToken(JwtResponseDto jwtResponseDto) throws ParseException {
-        try {
-            Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(jwtResponseDto.getToken());
-        } catch (ExpiredJwtException e) {
-            JWT jwt = JWTParser.parse(jwtResponseDto.getToken());
-            JWTClaimsSet claims = jwt.getJWTClaimsSet();
-            String nombreUsuario = claims.getSubject();
-            List<String> roles = claims.getStringListClaim("roles");
-            //List<String> roles = (List<String>) claims.getClaim("roles");
+        JWT jwt = JWTParser.parse(jwtResponseDto.getToken());
+        JWTClaimsSet claims = jwt.getJWTClaimsSet();
+        String nombreUsuario = claims.getSubject();
+        List<String> roles = claims.getStringListClaim(ROLES);
 
-            return Jwts.builder()
-                    .setSubject(nombreUsuario)
-                    .claim("roles", roles)
-                    .setIssuedAt(new Date())
-                    .setExpiration(new Date(new Date().getTime() + expiration))
-                    .signWith(SignatureAlgorithm.HS256, secret.getBytes())
-                    .compact();
-        }
-        return null;
+
+        return Jwts.builder()
+                .setSubject(nombreUsuario)
+                .claim(ROLES, roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + expiration * 180))
+                .signWith(SignatureAlgorithm.HS256, secret.getBytes())
+                .compact();
     }
 
 }
