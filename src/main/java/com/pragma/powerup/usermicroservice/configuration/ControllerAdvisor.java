@@ -1,6 +1,9 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RestaurantAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoExistsException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.RoleNotAllowedForCreationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -44,6 +47,27 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String,String>> handleNoAllowedUserException (NoAllowedUserException noAllowedUserException){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_ALLOWED_USER_MESSAGE));
+    }
+
+    @ExceptionHandler(RestaurantAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleRestaurantAlreadyExistsException(
+            RestaurantAlreadyExistsException restaurantAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, RESTAURANT_ALREADY_EXISTS_MESSAGE));
+    }
+
+    @ExceptionHandler(OwmerNoExistsException.class)
+    public ResponseEntity<Map<String, String>> handleOwmerNoExistsException(
+            OwmerNoExistsException owmerNoExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, OWNER_NO_EXISTS_MESSAGE));
+    }
+
+    @ExceptionHandler(RoleNotAllowedForCreationException.class)
+    public ResponseEntity<Map<String, String>> handleRoleNotAllowedForCreationException(
+            RoleNotAllowedForCreationException roleNotAllowedForCreationException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_ALLOWED_MESSAGE));
     }
 
 }

@@ -1,9 +1,11 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRestaurantEntityMapper;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RestaurantAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.domain.model.Restaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,13 @@ public class RestaurantMysqlAdapter implements IRestaurantPersistencePort {
 
 
     @Override
-    public void saveRestaurant(Restaurant restaurant) {
-        restaurantRepository.save(restaurantEntityMapper.toRestaurantEntity(restaurant));
+    public RestaurantEntity saveRestaurant(Restaurant restaurant) {
+
+        if (restaurantRepository.findByNit(restaurant.getNit()).isPresent()){
+            throw new RestaurantAlreadyExistsException();
+        }
+
+
+        return restaurantRepository.save(restaurantEntityMapper.toRestaurantEntity(restaurant));
     }
 }

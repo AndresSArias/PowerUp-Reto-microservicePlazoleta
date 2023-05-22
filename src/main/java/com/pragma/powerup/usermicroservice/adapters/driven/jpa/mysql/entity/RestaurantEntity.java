@@ -23,7 +23,7 @@ public class RestaurantEntity {
     private String direccion;
 
     @Column(nullable = false)
-    private Long idPropietario;
+    private String idPropietario;
 
     @Column (nullable = false, length = 13)
     private String phone;
@@ -31,7 +31,7 @@ public class RestaurantEntity {
     @Column (nullable = false)
     private String urlLogo;
 
-    @Column (nullable = false, unique = true)
+    @Column(unique = true, nullable = false, length = 20)
     private String nit;
 
 }

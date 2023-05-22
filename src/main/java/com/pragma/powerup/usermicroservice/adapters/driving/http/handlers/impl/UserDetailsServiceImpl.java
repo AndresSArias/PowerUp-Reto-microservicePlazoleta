@@ -5,16 +5,14 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.Au
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -28,23 +26,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + token);
-        AuthUserResponse usuario = null;
+        ResponseEntity<AuthUserResponse> resultado = null;
+        AuthUserResponse usuario;
 
+        List<String> roles;
         try{
-            usuario = userClient.getUserByDocument(documentID, headers);
+            resultado = userClient.getUserByDocument(documentID, headers);
         }catch (Exception e){
             throw new NoAllowedUserException();
         }
-
-
-        if (usuario == null){
-            throw  new UsernameNotFoundException("Usuario no encontrado");
-        }
-
-        List<String> roles = new ArrayList<>();
-
+        usuario = resultado.getBody();
+        roles = new ArrayList<>();
         roles.add(usuario.role());
-
 
         return PrincipalUser.build(usuario, roles);
     }
