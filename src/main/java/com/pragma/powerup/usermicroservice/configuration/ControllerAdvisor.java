@@ -2,7 +2,9 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RestaurantAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.NameFullNumberException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoExistsException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.RoleNotAllowedForCreationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.PHONE_LENGHT_MESSAGE;
 
 @ControllerAdvice
 public class ControllerAdvisor {
@@ -68,6 +71,20 @@ public class ControllerAdvisor {
             RoleNotAllowedForCreationException roleNotAllowedForCreationException) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_ALLOWED_MESSAGE));
+    }
+
+    @ExceptionHandler(PhoneLenghtException.class)
+    public ResponseEntity<Map<String, String>> handlePhoneLenghtException(
+            PhoneLenghtException phoneLenghtException) {
+        return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PHONE_LENGHT_MESSAGE));
+    }
+
+    @ExceptionHandler(NameFullNumberException.class)
+    public ResponseEntity<Map<String, String>> handleNameFullNumberException(
+            NameFullNumberException NameFullNumberException) {
+        return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NAME_RESTAURANT_EXCEPTION));
     }
 
 }

@@ -2,7 +2,6 @@ package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.extern.apachecommons.CommonsLog;
 
 @Entity
 @Table(name = "restaurants")

@@ -16,6 +16,8 @@ public class Constants {
     public static final String RESTAURANT_ALREADY_EXISTS_MESSAGE = "A restaurant already exists with the NIT number provided";
     public static final String OWNER_NO_EXISTS_MESSAGE = "Owner no exists with idPropietario";
     public static final String ROLE_NOT_ALLOWED_MESSAGE = "No permission granted to create restaurant with this role of idPropietario";
+    public static final String PHONE_LENGHT_MESSAGE = "The lenght of Phone is over 13";
+    public static final String NAME_RESTAURANT_EXCEPTION = "The name of restaurant cant be only numbers";
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";

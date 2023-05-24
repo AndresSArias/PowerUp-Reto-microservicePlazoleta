@@ -6,10 +6,12 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAl
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 import java.util.*;
@@ -22,24 +24,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserClient userClient;
 
 
-    public UserDetails loadUserByUsername(String documentID, String token) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String documentID, String token) throws NoAllowedUserException {
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + token);
-        ResponseEntity<AuthUserResponse> resultado = null;
-        AuthUserResponse usuario;
 
-        List<String> roles;
-        try{
-            resultado = userClient.getUserByDocument(documentID, headers);
-        }catch (Exception e){
+        List<String> roles = new ArrayList<>();;
+
+        ResponseEntity<AuthUserResponse> resultado = userClient.getUserByDocument(documentID, headers);
+        if (resultado == null){
             throw new NoAllowedUserException();
         }
-        usuario = resultado.getBody();
-        roles = new ArrayList<>();
+        AuthUserResponse usuario = resultado.getBody();
         roles.add(usuario.role());
-
         return PrincipalUser.build(usuario, roles);
+
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class PrincipalUser implements UserDetails {
 
@@ -27,8 +27,9 @@ public class PrincipalUser implements UserDetails {
     }
 
     public static PrincipalUser build(AuthUserResponse usuario, List<String> roles) {
-        List<GrantedAuthority> authorities = roles.stream()
-                .map(rol -> new SimpleGrantedAuthority(rol)).collect(Collectors.toList());
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+                .map(rol -> new SimpleGrantedAuthority(rol)).toList();
+
         return new PrincipalUser(usuario.name(), usuario.numberDocument(), usuario.email(),
                 usuario.password(), authorities);
     }

@@ -4,11 +4,6 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.Jw
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IAuthHandler;
 import com.pragma.powerup.usermicroservice.configuration.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
