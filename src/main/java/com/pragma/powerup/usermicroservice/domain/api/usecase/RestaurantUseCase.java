@@ -2,7 +2,7 @@ package com.pragma.powerup.usermicroservice.domain.api.usecase;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NameFullNumberException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoExistsException;
@@ -19,10 +19,10 @@ import java.util.Map;
 public class RestaurantUseCase implements IRestaurantServicePort {
 
     private final IRestaurantPersistencePort restaurantPersistencePort;
-    private final UserClient userClient;
+    private final IUserClient userClient;
 
 
-    public RestaurantUseCase(IRestaurantPersistencePort restaurantPersistencePort, UserClient userClient) {
+    public RestaurantUseCase(IRestaurantPersistencePort restaurantPersistencePort, IUserClient userClient) {
         this.restaurantPersistencePort = restaurantPersistencePort;
         this.userClient = userClient;
     }

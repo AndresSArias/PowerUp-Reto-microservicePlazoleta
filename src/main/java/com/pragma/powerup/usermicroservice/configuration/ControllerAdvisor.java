@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RestaurantAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NameFullNumberException;
@@ -21,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.PHONE_LENGHT_MESSAGE;
 
 @ControllerAdvice
 public class ControllerAdvisor {
@@ -85,6 +85,12 @@ public class ControllerAdvisor {
             NameFullNumberException NameFullNumberException) {
         return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NAME_RESTAURANT_EXCEPTION));
+    }
+
+    @ExceptionHandler(NoDataFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoDataFoundException(NoDataFoundException noDataFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_DATA_FOUND_MESSAGE));
     }
 
 }

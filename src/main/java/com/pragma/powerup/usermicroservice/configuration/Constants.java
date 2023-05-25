@@ -18,6 +18,7 @@ public class Constants {
     public static final String ROLE_NOT_ALLOWED_MESSAGE = "No permission granted to create restaurant with this role of idPropietario";
     public static final String PHONE_LENGHT_MESSAGE = "The lenght of Phone is over 13";
     public static final String NAME_RESTAURANT_EXCEPTION = "The name of restaurant cant be only numbers";
+    public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";

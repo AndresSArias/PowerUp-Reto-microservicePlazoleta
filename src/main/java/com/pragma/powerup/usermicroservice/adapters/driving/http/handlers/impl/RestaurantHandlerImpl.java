@@ -2,7 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.RestaurantRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRestaurantHandler;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper.IRestaurantRequestMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper.request.IRestaurantRequestMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
 
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,10 +16,10 @@ public class WebConfiguration {
     }
 
     @Bean
-    public UserClient userClient (final WebClient webCliente){
+    public IUserClient userClient (final WebClient webCliente){
         WebClientAdapter clientAdapter = WebClientAdapter.forClient(webCliente);
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory.builder(clientAdapter).build();
-        return httpServiceProxyFactory.createClient(UserClient.class);
+        return httpServiceProxyFactory.createClient(IUserClient.class);
     }
 
 }

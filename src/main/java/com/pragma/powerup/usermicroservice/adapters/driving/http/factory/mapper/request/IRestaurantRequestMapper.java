@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper.request;
 
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.RestaurantRequestDto;

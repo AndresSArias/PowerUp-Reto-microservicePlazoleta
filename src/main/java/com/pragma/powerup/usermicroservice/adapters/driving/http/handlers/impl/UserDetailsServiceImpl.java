@@ -3,15 +3,13 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 import java.util.*;
@@ -21,7 +19,7 @@ import java.util.*;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserClient userClient;
+    private IUserClient IUserClient;
 
 
     public UserDetails loadUserByUsername(String documentID, String token) throws NoAllowedUserException {
@@ -31,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         List<String> roles = new ArrayList<>();;
 
-        ResponseEntity<AuthUserResponse> resultado = userClient.getUserByDocument(documentID, headers);
+        ResponseEntity<AuthUserResponse> resultado = IUserClient.getUserByDocument(documentID, headers);
         if (resultado == null){
             throw new NoAllowedUserException();
         }

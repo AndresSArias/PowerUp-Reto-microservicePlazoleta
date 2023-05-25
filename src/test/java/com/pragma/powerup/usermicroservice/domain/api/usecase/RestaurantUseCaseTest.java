@@ -2,7 +2,7 @@ package com.pragma.powerup.usermicroservice.domain.api.usecase;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.UserClient;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import com.pragma.powerup.usermicroservice.domain.model.Restaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ class RestaurantUseCaseTest {
     @Mock
     private IRestaurantPersistencePort restaurantPersistencePort;
     @Mock
-    private UserClient userClient;
+    private IUserClient IUserClient;
     private Restaurant requestRestaurant;
 
     @BeforeEach
@@ -46,7 +46,7 @@ class RestaurantUseCaseTest {
         Map<String,String> resultHeaders = new HashMap<String, String>() {{
             put("Authorization", "Bearer x.x.x.x");
         }};
-        when(userClient.getUserByDocument(requestRestaurant.getIdPropietario(), resultHeaders).getBody());
+        when(IUserClient.getUserByDocument(requestRestaurant.getIdPropietario(), resultHeaders).getBody());
         when(restaurantPersistencePort.saveRestaurant(requestRestaurant));
 
         RestaurantEntity obtainedRestaurant = restaurantUseCase.saveRestaurant(requestRestaurant,"Bearer x.x.x.x");
