@@ -2,7 +2,7 @@
 <div align="center">
 <h3 align="center">PRAGMA POWER-UP</h3>
   <p align="center">
-    In this challenge you are going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.
+    In this challenge I am going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.This is Microservice of Plazoleta, this services resolve the HU2 with the conexion of Microservice of Users.
   </p>
 </div>
 
@@ -34,9 +34,9 @@ To get a local copy up and running follow these steps.
 1. Clone the repository
 2. Change directory
    ```sh
-   cd power-up-arquetipo-v3
+   cd PowerUp-Reto-microservicePlazoleta
    ```
-3. Create a new database in MySQL called powerup
+3. Execute the script of "scriptCreationDB" in resource (src/main/resources/scriptCreationDB.sql).
 4. Update the database connection settings
    ```yml
    # src/main/resources/application-dev.yml
@@ -46,8 +46,7 @@ To get a local copy up and running follow these steps.
           username: root
           password: <your-password>
    ```
-5. After the tables are created execute src/main/resources/data.sql content to populate the database
-6. Open Swagger UI and search the /auth/login endpoint and login with userDni: 123, password: 1234
+6. Open Swagger UI and search for the endpoint you want to use, remember to have the token generated from the User microservice.
 
 <!-- USAGE -->
 ## Usage
