@@ -9,4 +9,5 @@ public interface IRestaurantRepository extends JpaRepository<RestaurantEntity,Lo
 
     Optional<RestaurantEntity> findByNit(String nit);
 
+    Optional<RestaurantEntity> findByNombre(String nombre);
 }
