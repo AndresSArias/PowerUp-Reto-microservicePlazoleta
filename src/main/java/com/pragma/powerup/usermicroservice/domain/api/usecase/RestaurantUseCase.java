@@ -29,6 +29,7 @@ public class RestaurantUseCase implements IRestaurantServicePort {
 
     @Override
     public RestaurantEntity saveRestaurant(Restaurant restaurant, String token) {
+
         AuthUserResponse userOwner = null;
 
         try{

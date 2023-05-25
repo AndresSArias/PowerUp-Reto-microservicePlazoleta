@@ -7,4 +7,5 @@ public record AuthUserResponse(
         String password,
         String role
 ) {
+
 }
