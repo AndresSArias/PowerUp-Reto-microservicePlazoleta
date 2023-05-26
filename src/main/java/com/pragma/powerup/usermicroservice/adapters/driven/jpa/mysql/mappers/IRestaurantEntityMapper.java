@@ -11,4 +11,5 @@ import org.mapstruct.ReportingPolicy;
 public interface IRestaurantEntityMapper {
 
     RestaurantEntity toRestaurantEntity (Restaurant restaurant);
+    Restaurant toRestaurant(RestaurantEntity restaurantEntity);
 }

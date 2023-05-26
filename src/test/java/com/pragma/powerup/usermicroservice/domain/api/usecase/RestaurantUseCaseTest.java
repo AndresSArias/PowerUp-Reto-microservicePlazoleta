@@ -27,6 +27,7 @@ class RestaurantUseCaseTest {
     @Mock
     private IUserClient IUserClient;
     private Restaurant requestRestaurant;
+    private
 
     @BeforeEach
     void setUp() {
@@ -46,6 +47,7 @@ class RestaurantUseCaseTest {
         Map<String,String> resultHeaders = new HashMap<String, String>() {{
             put("Authorization", "Bearer x.x.x.x");
         }};
+
         when(IUserClient.getUserByDocument(requestRestaurant.getIdPropietario(), resultHeaders).getBody());
         when(restaurantPersistencePort.saveRestaurant(requestRestaurant));
 

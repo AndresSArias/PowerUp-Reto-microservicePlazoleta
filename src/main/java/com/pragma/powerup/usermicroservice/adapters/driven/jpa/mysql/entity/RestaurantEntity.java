@@ -3,7 +3,6 @@ package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
 
 @Entity
 @Table(name = "restaurants")
@@ -35,6 +34,5 @@ public class RestaurantEntity {
     @Column(unique = true, nullable = false, length = 20)
     private String nit;
 
-    private HashSet valor
 
 }

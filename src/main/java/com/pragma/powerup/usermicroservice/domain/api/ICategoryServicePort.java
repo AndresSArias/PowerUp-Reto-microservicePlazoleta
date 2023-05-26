@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ICategoryServicePort {
     List<Category> getAllCategorys();
+
 }

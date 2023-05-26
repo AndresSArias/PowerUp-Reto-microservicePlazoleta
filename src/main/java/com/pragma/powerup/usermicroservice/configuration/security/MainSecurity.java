@@ -47,6 +47,7 @@ public class MainSecurity {
         http.cors().and().csrf().disable()
                 .authorizeRequests(requests -> requests
                         .requestMatchers("/auth/refresh","/category/getAll","/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/health").permitAll()
+                        .requestMatchers("plate/createPlate").hasRole("OWNER")
                         .requestMatchers("/restaurant/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

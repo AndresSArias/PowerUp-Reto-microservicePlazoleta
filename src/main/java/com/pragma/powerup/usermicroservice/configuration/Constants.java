@@ -19,6 +19,10 @@ public class Constants {
     public static final String PHONE_LENGHT_MESSAGE = "The lenght of Phone is over 13";
     public static final String NAME_RESTAURANT_EXCEPTION = "The name of restaurant cant be only numbers";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
+    public static final String PLATE_CREATED_MESSAGE = "Plate created successfully";
+    public static final String NO_CATEGORY_FOUND_MESSAGE = "No category found for the name send with requested petition";
+    public static final String NO_RESTAURANT_FOUND_MESSAGE = "No restaurant found for the nit send with requested petition";
+    public static final String OWNER_NO_ALLOWED_CREATION_MESSAGE = "The owner do transaction no have permisse for create plate in the restaurant with send in requested petition";
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";

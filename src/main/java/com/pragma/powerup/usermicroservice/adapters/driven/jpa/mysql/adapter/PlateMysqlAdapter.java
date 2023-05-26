@@ -24,10 +24,6 @@ public class PlateMysqlAdapter implements IPlatePersistencePort {
     @Override
     public PlateEntity savePlate(Plate plate) {
 
-        if (restaurantRepository.findByNombre(plate.getRestaurant().getNombre()).isPresent()){
-           // plate.setRestaurant();
-        }
-
         return plateRepository.save(plateEntityMapper.toEntity(plate));
     }
 }

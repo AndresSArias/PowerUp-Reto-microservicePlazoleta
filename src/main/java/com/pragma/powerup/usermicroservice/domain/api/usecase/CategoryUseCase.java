@@ -17,4 +17,6 @@ public class CategoryUseCase implements ICategoryServicePort {
     public List<Category> getAllCategorys() {
         return  categoryPersistencePort.getAllCategorys();
     }
+
+
 }

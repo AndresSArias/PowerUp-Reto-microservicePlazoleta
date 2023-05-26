@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ICategoryPersistencePort {
     List<Category> getAllCategorys();
+
+
+    Category getCategoryByName(String name);
 }

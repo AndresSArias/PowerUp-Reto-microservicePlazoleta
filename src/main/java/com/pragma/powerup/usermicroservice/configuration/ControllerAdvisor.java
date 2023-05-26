@@ -1,12 +1,11 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoCategoryFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoRestaurantFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RestaurantAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.NameFullNumberException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoExistsException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.RoleNotAllowedForCreationException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -82,7 +81,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(NameFullNumberException.class)
     public ResponseEntity<Map<String, String>> handleNameFullNumberException(
-            NameFullNumberException NameFullNumberException) {
+            NameFullNumberException nameFullNumberException) {
         return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NAME_RESTAURANT_EXCEPTION));
     }
@@ -93,4 +92,21 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_DATA_FOUND_MESSAGE));
     }
 
+    @ExceptionHandler(NoCategoryFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoCategoryFoundException(NoCategoryFoundException noCategoryFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_CATEGORY_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(NoRestaurantFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoRestaurantFoundException(NoRestaurantFoundException noRestaurantFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_RESTAURANT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(OwmerNoAllowedCreationException.class)
+    public ResponseEntity<Map<String, String>> handleOwmerNoAllowedCreationException(OwmerNoAllowedCreationException owmerNoAllowedCreationException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, OWNER_NO_ALLOWED_CREATION_MESSAGE));
+    }
 }
