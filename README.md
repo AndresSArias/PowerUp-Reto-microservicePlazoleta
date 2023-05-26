@@ -2,7 +2,7 @@
 <div align="center">
 <h3 align="center">PRAGMA POWER-UP</h3>
   <p align="center">
-    In this challenge I am going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.This is Microservice of Plazoleta, this services resolve the HU2 with the conexion of Microservice of Users.
+    In this challenge I am going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.This is Microservice of Plazoleta, this services resolve the HU2, HU3 with the conexion of Microservice of Users.
   </p>
 </div>
 
@@ -46,6 +46,7 @@ To get a local copy up and running follow these steps.
           username: root
           password: <your-password>
    ```
+5. After the tables are created with the first execute microservice, execute src/main/resources/scriptInitialFillDB.sql content to populate the database
 6. Open Swagger UI and search for the endpoint you want to use, remember to have the token generated from the User microservice.
 
 <!-- USAGE -->
