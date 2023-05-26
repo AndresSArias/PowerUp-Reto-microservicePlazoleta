@@ -25,7 +25,7 @@ public class PlateMysqlAdapter implements IPlatePersistencePort {
     public PlateEntity savePlate(Plate plate) {
 
         if (restaurantRepository.findByNombre(plate.getRestaurant().getNombre()).isPresent()){
-            plate.setRestaurant();
+           // plate.setRestaurant();
         }
 
         return plateRepository.save(plateEntityMapper.toEntity(plate));
