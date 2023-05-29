@@ -23,6 +23,8 @@ public class Constants {
     public static final String NO_CATEGORY_FOUND_MESSAGE = "No category found for the name send with requested petition";
     public static final String NO_RESTAURANT_FOUND_MESSAGE = "No restaurant found for the nit send with requested petition";
     public static final String OWNER_NO_ALLOWED_CREATION_MESSAGE = "The owner do transaction no have permisse for create plate in the restaurant with send in requested petition";
+    public static final String PLATE_UPDATED_MESSAGE = "Plate update successfully";
+
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";

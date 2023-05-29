@@ -26,4 +26,9 @@ public class PlateMysqlAdapter implements IPlatePersistencePort {
 
         return plateRepository.save(plateEntityMapper.toEntity(plate));
     }
+
+    @Override
+    public Plate getPlateById(Long id) {
+        return plateEntityMapper.toPlate (plateRepository.findById(id));
+    }
 }

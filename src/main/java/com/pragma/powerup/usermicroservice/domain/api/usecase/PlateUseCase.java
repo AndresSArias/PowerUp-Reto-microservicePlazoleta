@@ -35,4 +35,10 @@ public class PlateUseCase implements IPlateServicePort {
 
         return platePersistencePort.savePlate(plate);
     }
+
+    @Override
+    public PlateEntity updatePlate(Plate plate, String ownerDNI) {
+        Plate plateUpdated = platePersistencePort.getPlateById(plate.getId());
+        return null;
+    }
 }

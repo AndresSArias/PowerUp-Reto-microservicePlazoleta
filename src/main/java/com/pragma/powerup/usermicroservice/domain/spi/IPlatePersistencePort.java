@@ -7,4 +7,6 @@ public interface IPlatePersistencePort {
 
     PlateEntity savePlate (Plate plate);
 
+    Plate getPlateById(Long id);
+
 }
