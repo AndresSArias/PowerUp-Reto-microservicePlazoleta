@@ -22,8 +22,11 @@ public class Constants {
     public static final String PLATE_CREATED_MESSAGE = "Plate created successfully";
     public static final String NO_CATEGORY_FOUND_MESSAGE = "No category found for the name send with requested petition";
     public static final String NO_RESTAURANT_FOUND_MESSAGE = "No restaurant found for the nit send with requested petition";
+    public static final String NO_PLATE_FOUND_MESSAGE = "No plate found for the idPlate send with requested petition";
     public static final String OWNER_NO_ALLOWED_CREATION_MESSAGE = "The owner do transaction no have permisse for create plate in the restaurant with send in requested petition";
     public static final String PLATE_UPDATED_MESSAGE = "Plate update successfully";
+    public static final String PLATE_NO_BELONG_RESTAURANT_MESSAGE = "The plate does not belong to the restaurant nit sent with requested petition";
+    public static final String NO_ALLOWED_OWNER_UPDATE_PLATE_MESSAGE = "The owner who is trying to update the plate, does not have permissions to update that plate.";
 
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
@@ -32,4 +35,7 @@ public class Constants {
     public static final String SWAGGER_LICENSE_NAME_MESSAGE = "Apache 2.0";
     public static final String SWAGGER_LICENSE_URL_MESSAGE = "http://springdoc.org";
     public static final String SWAGGER_TERMS_OF_SERVICE_MESSAGE = "http://swagger.io/terms/";
+
+    public static final String IDUSER = "idUser";
+
 }

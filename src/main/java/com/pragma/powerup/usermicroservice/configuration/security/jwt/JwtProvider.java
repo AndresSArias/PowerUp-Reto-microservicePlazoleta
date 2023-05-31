@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.pragma.powerup.usermicroservice.configuration.Constants.IDUSER;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLES;
 
 @Component
@@ -40,8 +41,9 @@ public class JwtProvider {
         List<String> roles = usuarioPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
         return Jwts.builder()
-                .setSubject(usuarioPrincipal.getUsername())
-                .claim("roles", roles)
+                .setSubject(usuarioPrincipal.getEmail())
+                .claim(IDUSER, usuarioPrincipal.getUsername())
+                .claim(ROLES, roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))
                 .signWith(SignatureAlgorithm.HS256, secret.getBytes())
@@ -51,6 +53,11 @@ public class JwtProvider {
     public String getNombreUsuarioFromToken(String token) {
         return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().getSubject();
     }
+
+    public String getIdUserFromToken(String token)  {
+        return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().get(IDUSER, String.class);
+    }
+
 
     public boolean validateToken(String token) {
         try {
@@ -75,10 +82,12 @@ public class JwtProvider {
         JWTClaimsSet claims = jwt.getJWTClaimsSet();
         String nombreUsuario = claims.getSubject();
         List<String> roles = claims.getStringListClaim(ROLES);
+        String idUser = claims.getStringClaim(IDUSER);
 
 
         return Jwts.builder()
                 .setSubject(nombreUsuario)
+                .claim(IDUSER, idUser)
                 .claim(ROLES, roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))

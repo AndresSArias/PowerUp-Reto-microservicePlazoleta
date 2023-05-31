@@ -15,7 +15,7 @@ public interface IPlateRequestMapper {
     @Mapping(target = "restaurant.nit",source = "nitRestaurant")
     Plate toPlate (PlateRequestDto plateRequestDto);
 
-
+    @Mapping(target = "id",source = "idPlate")
     @Mapping(target = "restaurant.nit",source = "nitRestaurant")
     Plate toPlate (PlateUpdateRequestDto plateRequestDto);
 

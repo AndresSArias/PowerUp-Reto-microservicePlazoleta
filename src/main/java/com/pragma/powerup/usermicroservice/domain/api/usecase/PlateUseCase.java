@@ -1,9 +1,10 @@
 package com.pragma.powerup.usermicroservice.domain.api.usecase;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PlateEntity;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUpdateException;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoBelongToRestaurant;
 import com.pragma.powerup.usermicroservice.domain.api.IPlateServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoAllowedCreationException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoExistsException;
 import com.pragma.powerup.usermicroservice.domain.model.Plate;
 import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IPlatePersistencePort;
@@ -38,7 +39,19 @@ public class PlateUseCase implements IPlateServicePort {
 
     @Override
     public PlateEntity updatePlate(Plate plate, String ownerDNI) {
+
         Plate plateUpdated = platePersistencePort.getPlateById(plate.getId());
-        return null;
+
+        if (!plate.getRestaurant().getNit().equals(plateUpdated.getRestaurant().getNit())){
+            throw  new NoBelongToRestaurant();
+        }
+        if (!plateUpdated.getRestaurant().getIdPropietario().equals(ownerDNI)){
+            throw new NoAllowedUpdateException();
+        }
+
+        plateUpdated.setDescription(plate.getDescription());
+        plateUpdated.setPrice(plate.getPrice());
+
+        return platePersistencePort.savePlate(plateUpdated);
     }
 }

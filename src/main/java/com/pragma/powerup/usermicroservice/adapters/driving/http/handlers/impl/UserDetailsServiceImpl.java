@@ -30,6 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<String> roles = new ArrayList<>();;
 
         ResponseEntity<AuthUserResponse> resultado = IUserClient.getUserByDocument(documentID, headers);
+
         if (resultado == null){
             throw new NoAllowedUserException();
         }

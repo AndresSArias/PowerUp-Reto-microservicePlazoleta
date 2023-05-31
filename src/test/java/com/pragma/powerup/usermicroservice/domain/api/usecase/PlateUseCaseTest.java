@@ -15,14 +15,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.swing.text.html.parser.Entity;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class PlateUseCaseTest {
 
     @InjectMocks
@@ -38,9 +40,14 @@ class PlateUseCaseTest {
     private  Category responseCategory;
     private  Restaurant responseRestaurant;
 
+    private Plate requestUpdatePlate;
+
+
 
     @BeforeEach
     void setUp() {
+
+        //Preparación test HU3
         requestPlate = new Plate(1L, "testPlate",
                 new Category(1L, "testNameCategory", "testDescriptionCategory"),
                 "testDescription", 10000,
@@ -48,11 +55,20 @@ class PlateUseCaseTest {
                         "Calle 1 # 1-1", "111", "+573142294644",
                         "https://picsum.photos/200/300",  "1"),
                 "https://picsum.photos/200/",null);
+
         responseCategory = new  Category(1L, "testNameCategory", "testDescriptionCategory");
         responseRestaurant =  new Restaurant(1L,"restaurantNameTest1",
                 "Calle 1 # 1-1", "111", "+573142294644",
                 "https://picsum.photos/200/300",  "1");
 
+        //Preparacion HU4
+        requestUpdatePlate =  new Plate(1L, null,
+                new Category(null, null, null),
+                "New testDescription", 50000,
+                new Restaurant(null,null,
+                        null, null, null,
+                        null,  "1"),
+                null,null);
     }
 
     @Test
@@ -72,5 +88,31 @@ class PlateUseCaseTest {
         PlateEntity obtaintPlate = plateUseCase.savePlate(requestPlate, "111");
 
         assertEquals(resultPlate, obtaintPlate,"result was wrong");
+    }
+
+    @Test
+    void updatePlate(){
+        //Preparación
+        CategoryEntity resultCategory = new  CategoryEntity(1L, "testNameCategory", "testDescriptionCategory");
+        RestaurantEntity resultRestaurant =  new RestaurantEntity(1L,"restaurantNameTest1",
+                "Calle 1 # 1-1", "111", "+573142294644",
+                "https://picsum.photos/200/300",  "1");
+        Plate plateUpdated = new Plate(1L, "testPlate",
+                new Category(1L, "testNameCategory", "testDescriptionCategory"),
+                "New testDescription", 50000,
+                new Restaurant(1L,"restaurantNameTest1",
+                        "Calle 1 # 1-1", "111", "+573142294644",
+                        "https://picsum.photos/200/300",  "1"),
+                "https://picsum.photos/200/","tue");
+        PlateEntity resultUpdatePlateEntity = new PlateEntity(1L, "testPlate",resultCategory,"New testDescription", 50000,
+                resultRestaurant,
+                "https://picsum.photos/200/","true");
+        when (platePersistencePort.getPlateById(requestUpdatePlate.getId())).thenReturn(requestPlate);
+        when (platePersistencePort.savePlate(any())).thenReturn(resultUpdatePlateEntity);
+
+        PlateEntity obtaintUpdatePlate = plateUseCase.updatePlate(requestUpdatePlate, "111");
+
+        assertEquals(resultUpdatePlateEntity, obtaintUpdatePlate,"result was wrong");
+
     }
 }

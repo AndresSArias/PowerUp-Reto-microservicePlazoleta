@@ -3,8 +3,7 @@ package com.pragma.powerup.usermicroservice.configuration;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoCategoryFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoRestaurantFoundException;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUserException;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RestaurantAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.*;
 import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -109,4 +108,21 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, OWNER_NO_ALLOWED_CREATION_MESSAGE));
     }
+    @ExceptionHandler(NoPlateFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoPlateFoundException(NoPlateFoundException noPlateFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_PLATE_FOUND_MESSAGE));
+    }
+    @ExceptionHandler(NoBelongToRestaurant.class)
+    public ResponseEntity<Map<String, String>> handleNoBelongToRestaurant(
+            NoBelongToRestaurant noBelongToRestaurant) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PLATE_NO_BELONG_RESTAURANT_MESSAGE));
+    }
+    @ExceptionHandler(NoAllowedUpdateException.class)
+    public ResponseEntity<Map<String,String>> handleNoAllowedUpdateException (NoAllowedUpdateException NoAllowedUpdateException){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_ALLOWED_OWNER_UPDATE_PLATE_MESSAGE));
+    }
+
 }

@@ -20,11 +20,11 @@ public class PlateHandlerImpl implements IPlateHandler {
 
     @Override
     public void savePlate(PlateRequestDto plateRequestDto, String token) {
-        plateServicePort.savePlate(plateRequestMapper.toPlate(plateRequestDto),jwtProvider.getNombreUsuarioFromToken(token.substring(7)));
+        plateServicePort.savePlate(plateRequestMapper.toPlate(plateRequestDto),jwtProvider.getIdUserFromToken(token.substring(7)));
     }
 
     @Override
     public void updatePlate(PlateUpdateRequestDto plateUpdateRequestDto, String token) {
-        plateServicePort.updatePlate(plateRequestMapper.toPlate(plateUpdateRequestDto),jwtProvider.getNombreUsuarioFromToken(token.substring(7)));
+        plateServicePort.updatePlate(plateRequestMapper.toPlate(plateUpdateRequestDto),jwtProvider.getIdUserFromToken(token.substring(7)));
     }
 }
