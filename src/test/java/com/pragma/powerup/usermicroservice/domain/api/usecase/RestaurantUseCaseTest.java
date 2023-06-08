@@ -13,8 +13,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
+
 import java.util.HashMap;
 import java.util.Map;
+import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -25,12 +28,11 @@ class RestaurantUseCaseTest {
     @Mock
     private IRestaurantPersistencePort restaurantPersistencePort;
     @Mock
-    private IUserClient IUserClient;
+    private IUserClient userClient;
     private Restaurant requestRestaurant;
-    private
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         requestRestaurant = new Restaurant(1L,"restaurantNameTest1",
                 "Calle 1 # 1-1", "111", "+573142294644",
                 "https://picsum.photos/200/300",  "1");
@@ -48,28 +50,15 @@ class RestaurantUseCaseTest {
             put("Authorization", "Bearer x.x.x.x");
         }};
 
-        when(IUserClient.getUserByDocument(requestRestaurant.getIdPropietario(), resultHeaders).getBody());
-        when(restaurantPersistencePort.saveRestaurant(requestRestaurant));
+        when(userClient.getUserByDocument(requestRestaurant.getIdPropietario(), resultHeaders)).thenReturn(ResponseEntity.ok(resultOwner));
+        when(restaurantPersistencePort.saveRestaurant(requestRestaurant)).thenReturn(resultRestaurant);
+
 
         RestaurantEntity obtainedRestaurant = restaurantUseCase.saveRestaurant(requestRestaurant,"Bearer x.x.x.x");
 
         assertEquals(resultRestaurant,obtainedRestaurant,"result was wrong");
 
     }
-
-    private AuthUserResponse when(AuthUserResponse body) {
-        AuthUserResponse resultOwner = new AuthUserResponse("nameTest","111","test@email.con",
-                "encryptedPasword","ROLE_OWNER");
-        return resultOwner;
-    }
-
-    private RestaurantEntity when(RestaurantEntity body) {
-        RestaurantEntity resultRestaurant = new RestaurantEntity(1L,"restaurantNameTest1",
-                "Calle 1 # 1-1", "111", "+573142294644",
-                "https://picsum.photos/200/300",  "1");
-        return resultRestaurant;
-    }
-
     @ParameterizedTest
     @CsvSource({
             "'nameTest',true",

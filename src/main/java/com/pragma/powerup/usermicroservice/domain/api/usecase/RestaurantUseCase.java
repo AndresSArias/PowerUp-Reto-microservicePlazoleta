@@ -4,16 +4,13 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Rest
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
-import com.pragma.powerup.usermicroservice.domain.exceptions.NameFullNumberException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoExistsException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.PhoneLenghtException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.RoleNotAllowedForCreationException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import com.pragma.powerup.usermicroservice.domain.model.Restaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Optional;
 
 
 public class RestaurantUseCase implements IRestaurantServicePort {
@@ -52,6 +49,17 @@ public class RestaurantUseCase implements IRestaurantServicePort {
 
         return restaurantPersistencePort.saveRestaurant(restaurant);
     }
+
+    @Override
+    public String getIdRestaurantByIdOwner(String nitRestaurant,String idOwner) {
+
+        Restaurant restaurant = restaurantPersistencePort.getRestaurantByNit(nitRestaurant);
+        if (!idOwner.equals(restaurant.getIdPropietario())){
+            throw new OwmerNoAllowedCreationException();
+        }
+        return restaurant.getNit();
+    }
+
     public boolean validateRestaurantName (Restaurant restaurant){
         return restaurant.getNombre().chars().anyMatch(c -> !Character.isDigit(c));
     }

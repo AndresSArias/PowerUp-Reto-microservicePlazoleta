@@ -42,4 +42,9 @@ public class RestaurantRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.RESTAURANT_CREATED_MESSAGE));
     }
 
+    @GetMapping("/getIdRestaurant/{nitRestaurant}")
+    public ResponseEntity<String> getIdRestaurant(@PathVariable String nitRestaurant, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(restaurantHandler.getIdRestaurant(nitRestaurant, token));
+    }
+
 }

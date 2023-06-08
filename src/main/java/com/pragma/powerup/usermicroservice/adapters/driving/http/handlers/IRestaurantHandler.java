@@ -7,5 +7,6 @@ public interface IRestaurantHandler {
 
    void saveRestaurant (RestaurantRequestDto restaurantRequestDto, String token);
 
+   String getIdRestaurant (String nitRestaurant, String token);
 
 }
