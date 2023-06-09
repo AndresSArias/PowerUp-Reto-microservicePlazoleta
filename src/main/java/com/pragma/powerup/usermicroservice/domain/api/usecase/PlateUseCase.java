@@ -54,4 +54,24 @@ public class PlateUseCase implements IPlateServicePort {
 
         return platePersistencePort.savePlate(plateUpdated);
     }
+
+    @Override
+    public PlateEntity updateStatePlate(Plate plate, String ownerDNI) {
+        Plate plateUpdated = platePersistencePort.getPlateById(plate.getId());
+
+        if (!plate.getRestaurant().getNit().equals(plateUpdated.getRestaurant().getNit())){
+            throw  new NoBelongToRestaurant();
+        }
+        if (!plateUpdated.getRestaurant().getIdPropietario().equals(ownerDNI)){
+            throw new NoAllowedUpdateException();
+        }
+
+        if (plateUpdated.getActive().equals("true")){
+            plateUpdated.setActive("false");
+        }else{
+            plateUpdated.setActive("true");
+        }
+
+        return platePersistencePort.savePlate(plateUpdated);
+    }
 }

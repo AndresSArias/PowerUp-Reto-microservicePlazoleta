@@ -3,6 +3,11 @@ Script for the fill the initial register of dbplazoleta
 */
 USE dbplazoleta;
 
+ALTER TABLE plates 
+MODIFY COLUMN active varchar(255) NOT NULL
+CHECK (active IN ('true', 'false'));
+
+
 INSERT INTO categorys (id, description, name) VALUES ('1', 'Es un plato de comida que puede consumirse como 1er plato, Es un plato de menor cantidad de comida que el plato principal. Las entradas pueden servirse frías o calientes. Pueden montarse en platos individuales o al centro de la mesa.','Entrada');
 INSERT INTO categorys (id, description, name) VALUES ('2', 'Son preparaciones culinarias consistentes en un líquido con sustancia y mucho sabor. En algunos casos poseen ingredientes sólidos, en otros casos los ingredientes se pueden moler. Pueden prepararse sopas frías o calientes.', 'Sopa');
 INSERT INTO categorys (id, description, name) VALUES ('3', 'Las ensaladas pueden estar compuestas de verduras, frutas y/o proteínas. Pueden tener ingredientes crudos y/o cocidos. Son cada vez más solicitadas por quienes buscan la tendencia natural y tienen una preocupación por una dieta baja en calorías.', 'Ensalada');

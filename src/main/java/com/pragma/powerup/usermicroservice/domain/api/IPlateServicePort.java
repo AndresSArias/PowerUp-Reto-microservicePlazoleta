@@ -8,4 +8,6 @@ public interface IPlateServicePort {
     PlateEntity savePlate (Plate plate, String ownerDNI);
 
     PlateEntity updatePlate(Plate plate, String ownerDNI);
+
+    PlateEntity updateStatePlate (Plate plate, String ownerDNI);
 }

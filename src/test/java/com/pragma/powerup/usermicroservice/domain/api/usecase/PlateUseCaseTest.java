@@ -69,6 +69,14 @@ class PlateUseCaseTest {
                         null, null, null,
                         null,  "1"),
                 null,null);
+        //Preparación HU7
+        requestUpdatePlate =  new Plate(1L, null,
+                new Category(null, null, null),
+                null, 0,
+                new Restaurant(null,null,
+                        null, null, null,
+                        null,  "1"),
+                null,null);
     }
 
     @Test
@@ -107,10 +115,36 @@ class PlateUseCaseTest {
         PlateEntity resultUpdatePlateEntity = new PlateEntity(1L, "testPlate",resultCategory,"New testDescription", 50000,
                 resultRestaurant,
                 "https://picsum.photos/200/","true");
-        when (platePersistencePort.getPlateById(requestUpdatePlate.getId())).thenReturn(requestPlate);
-        when (platePersistencePort.savePlate(any())).thenReturn(resultUpdatePlateEntity);
+        when (platePersistencePort.getPlateById(requestUpdatePlate.getId())).thenReturn(plateUpdated);
+        when (platePersistencePort.savePlate(plateUpdated)).thenReturn(resultUpdatePlateEntity);
 
         PlateEntity obtaintUpdatePlate = plateUseCase.updatePlate(requestUpdatePlate, "111");
+
+        assertEquals(resultUpdatePlateEntity, obtaintUpdatePlate,"result was wrong");
+
+    }
+
+    @Test
+    void updateStatePlate(){
+        CategoryEntity resultCategory = new  CategoryEntity(1L, "testNameCategory", "testDescriptionCategory");
+        RestaurantEntity resultRestaurant =  new RestaurantEntity(1L,"restaurantNameTest1",
+                "Calle 1 # 1-1", "111", "+573142294644",
+                "https://picsum.photos/200/300",  "1");
+        Plate plateStateUpdated = new Plate(1L, "testPlate",
+                new Category(1L, "testNameCategory", "testDescriptionCategory"),
+                "testDescription", 10000,
+                new Restaurant(1L,"restaurantNameTest1",
+                        "Calle 1 # 1-1", "111", "+573142294644",
+                        "https://picsum.photos/200/300",  "1"),
+                "https://picsum.photos/200/","true");
+        PlateEntity resultUpdatePlateEntity = new PlateEntity(1L, "testPlate",resultCategory,"testDescription", 10000,
+                resultRestaurant,
+                "https://picsum.photos/200/","false");
+        when (platePersistencePort.getPlateById(requestUpdatePlate.getId())).thenReturn(plateStateUpdated);
+        when (platePersistencePort.savePlate(plateStateUpdated)).thenReturn(resultUpdatePlateEntity);
+
+
+        PlateEntity obtaintUpdatePlate = plateUseCase.updateStatePlate(requestUpdatePlate, "111");
 
         assertEquals(resultUpdatePlateEntity, obtaintUpdatePlate,"result was wrong");
 
