@@ -7,8 +7,13 @@ import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import com.pragma.powerup.usermicroservice.domain.model.Restaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -60,6 +65,12 @@ public class RestaurantUseCase implements IRestaurantServicePort {
         return restaurant.getNit();
     }
 
+    @Override
+    public Page<Restaurant> getAllRestaurants(int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "nombre"));
+        return restaurantPersistencePort.getAllRestaurants(pageable);
+    }
+
     public boolean validateRestaurantName (Restaurant restaurant){
         return restaurant.getNombre().chars().anyMatch(c -> !Character.isDigit(c));
     }
@@ -76,9 +87,11 @@ public class RestaurantUseCase implements IRestaurantServicePort {
         return lenghtPhone <= 13;
     }
 
+
     public Map<String, String> getHeaders(String token) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", token);
         return  headers;
     }
+
 }

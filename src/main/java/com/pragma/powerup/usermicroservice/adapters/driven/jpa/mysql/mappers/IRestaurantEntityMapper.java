@@ -4,6 +4,12 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Rest
 import com.pragma.powerup.usermicroservice.domain.model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -12,4 +18,14 @@ public interface IRestaurantEntityMapper {
 
     RestaurantEntity toRestaurantEntity (Restaurant restaurant);
     Restaurant toRestaurant(RestaurantEntity restaurantEntity);
+
+    //Page<Restaurant> toRestaurantPage(Page<RestaurantEntity> restaurantEntityPage);
+
+    default Page<Restaurant> toRestaurantPage(Page<RestaurantEntity> entityPage) {
+        List<Restaurant> dtoList = entityPage.getContent().stream()
+                .map(this::toRestaurant)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(dtoList, entityPage.getPageable(), entityPage.getTotalElements());
+    }
 }
