@@ -13,6 +13,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
@@ -59,6 +61,7 @@ class RestaurantUseCaseTest {
         assertEquals(resultRestaurant,obtainedRestaurant,"result was wrong");
 
     }
+
     @ParameterizedTest
     @CsvSource({
             "'nameTest',true",

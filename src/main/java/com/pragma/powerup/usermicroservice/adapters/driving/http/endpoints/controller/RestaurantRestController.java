@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.cont
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.RestaurantRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.RestaurantRequestPageDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RestaurantHCIPage;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RestaurantResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRestaurantHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
@@ -60,7 +61,7 @@ public class RestaurantRestController {
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/getRestaurants/{size}/{page}")
-    public ResponseEntity<Page<RestaurantResponseDto>> getAllRestaurants(@PathVariable String size,@PathVariable String page) {
+    public ResponseEntity<RestaurantHCIPage> getAllRestaurants(@PathVariable String size, @PathVariable String page) {
         return ResponseEntity.ok(restaurantHandler.getAllRestaurant(page,size));
     }
 
