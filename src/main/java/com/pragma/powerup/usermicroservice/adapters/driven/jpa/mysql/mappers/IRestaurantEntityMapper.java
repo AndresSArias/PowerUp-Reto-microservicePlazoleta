@@ -19,7 +19,6 @@ public interface IRestaurantEntityMapper {
     RestaurantEntity toRestaurantEntity (Restaurant restaurant);
     Restaurant toRestaurant(RestaurantEntity restaurantEntity);
 
-    //Page<Restaurant> toRestaurantPage(Page<RestaurantEntity> restaurantEntityPage);
 
     default Page<Restaurant> toRestaurantPage(Page<RestaurantEntity> entityPage) {
         List<Restaurant> dtoList = entityPage.getContent().stream()

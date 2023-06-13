@@ -57,7 +57,7 @@ public class RestaurantRestController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "All restaurants returned",
                             content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = RestaurantResponseDto.class)))),
+                                    array = @ArraySchema(schema = @Schema(implementation = RestaurantHCIPage.class)))),
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/getRestaurants/{size}/{page}")

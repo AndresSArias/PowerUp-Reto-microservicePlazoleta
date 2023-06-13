@@ -3,15 +3,21 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.cont
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PlateRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PlateStateUpdateRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PlateUpdateRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PlateHCIPage;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PlatesResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RestaurantHCIPage;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RestaurantResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPlateHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,5 +75,18 @@ public class PlateRestController {
         plateHandler.updateStatePlate(plateStateUpdateRequestDto, token);
         return ResponseEntity.ok().body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PLATE_UPDATED_MESSAGE));
     }
+
+    @Operation(summary = "Get all plates of the restaurant for category and size and number of page",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "All specific plates returned",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = PlateHCIPage.class)))),
+                    @ApiResponse(responseCode = "404", description = "No data found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @GetMapping("/getPlates/{nitRestaurant}/{nameCategory}/{size}/{page}")
+    public ResponseEntity<Page<PlatesResponseDto>> getAllRestaurants(@PathVariable String nitRestaurant, @PathVariable String nameCategory, @PathVariable int size, @PathVariable int page) {
+        return ResponseEntity.ok(plateHandler.getAllSpecificPlates(nitRestaurant,nameCategory,page,size));
+    }
+
 
 }

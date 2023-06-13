@@ -9,6 +9,10 @@ import com.pragma.powerup.usermicroservice.domain.model.Plate;
 import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IPlatePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 public class PlateUseCase implements IPlateServicePort {
 
@@ -73,5 +77,11 @@ public class PlateUseCase implements IPlateServicePort {
         }
 
         return platePersistencePort.savePlate(plateUpdated);
+    }
+
+    @Override
+    public Page<Plate> getAllSpecificPlates(String nitRestaurant, String nameCategory, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return platePersistencePort.getAllSpecificPlates(nitRestaurant,nameCategory,pageable);
     }
 }

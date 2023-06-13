@@ -1,6 +1,11 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.CategoryEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PlateEntity;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoCategoryFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoRestaurantFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPlateEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.ICategoryRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPlateRepository;
@@ -10,6 +15,8 @@ import com.pragma.powerup.usermicroservice.domain.model.Plate;
 import com.pragma.powerup.usermicroservice.domain.spi.IPlatePersistencePort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -41,4 +48,32 @@ public class PlateMysqlAdapter implements IPlatePersistencePort {
 
         return plateEntityMapper.toPlate (plateEntity.get());
     }
+
+    @Override
+    public Page<Plate> getAllSpecificPlates (String nitRestaurant, String nameCategory, Pageable pageable){
+        Page<PlateEntity> plateEntityPage;
+        Optional<RestaurantEntity> restaurantEntity = restaurantRepository.findByNit(nitRestaurant);
+        if (!restaurantEntity.isPresent()){
+            throw new NoRestaurantFoundException();
+        }
+        if (nameCategory.equals("All")){
+            plateEntityPage = plateRepository.findAllByRestaurantEntity(restaurantEntity.get());
+            System.out.print(plateEntityPage);
+        }else{
+            Optional<CategoryEntity> categoryEntity = categoryRepository.findByName(nameCategory);
+            if(!categoryEntity.isPresent()){
+                throw new NoCategoryFoundException();
+            }else{
+                plateEntityPage = plateRepository.findAllByRestaurantEntityAndCategoryEntity(restaurantEntity.get(),categoryEntity.get());
+                System.out.print(plateEntityPage);
+            }
+        }
+
+        if (plateEntityPage.isEmpty()){
+            throw new NoDataFoundException();
+        }
+
+        return plateEntityMapper.toPlatePage (plateEntityPage);
+    }
+
 }
