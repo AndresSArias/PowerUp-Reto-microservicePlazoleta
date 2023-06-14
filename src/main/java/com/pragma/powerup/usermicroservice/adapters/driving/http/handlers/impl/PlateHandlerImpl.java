@@ -38,19 +38,13 @@ public class PlateHandlerImpl implements IPlateHandler {
     public void updateStatePlate(PlateStateUpdateRequestDto plateStateUpdateRequestDto, String token) {
         plateServicePort.updateStatePlate(plateRequestMapper.toPlate(plateStateUpdateRequestDto),jwtProvider.getIdUserFromToken(token.substring(7)));
     }
-/*
+
     @Override
     public PlateHCIPage getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size) {
 
         Page<PlatesResponseDto> platesResponseDtoPage = plateResponseMapper.toResponsePage(plateServicePort.getAllSpecificPlates(nitRestaurant, nameCategory, page, size));
 
-    }
-*/
-    @Override
-    public Page<PlatesResponseDto> getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size) {
-
-        return plateResponseMapper.toResponsePage(plateServicePort.getAllSpecificPlates(nitRestaurant, nameCategory, page, size));
-
+       return plateResponseMapper.toPlateHCIPage(platesResponseDtoPage,plateServicePort.getNameRestaurantByNit(nitRestaurant),nameCategory);
     }
 
 }

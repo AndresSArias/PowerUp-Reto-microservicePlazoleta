@@ -4,6 +4,8 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Plat
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoAllowedUpdateException;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoBelongToRestaurant;
 import com.pragma.powerup.usermicroservice.domain.api.IPlateServicePort;
+import com.pragma.powerup.usermicroservice.domain.exceptions.LenghtPageException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.LenghtSizeException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.OwmerNoAllowedCreationException;
 import com.pragma.powerup.usermicroservice.domain.model.Plate;
 import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
@@ -81,7 +83,18 @@ public class PlateUseCase implements IPlateServicePort {
 
     @Override
     public Page<Plate> getAllSpecificPlates(String nitRestaurant, String nameCategory, int page, int size) {
+        if (size < 1){
+            throw  new LenghtSizeException();
+        }
+        if (page < 0){
+            throw  new LenghtPageException();
+        }
         final Pageable pageable = PageRequest.of(page, size);
         return platePersistencePort.getAllSpecificPlates(nitRestaurant,nameCategory,pageable);
+    }
+
+    @Override
+    public String getNameRestaurantByNit(String nitRestaurant) {
+        return restaurantPersistencePort.getRestaurantByNit(nitRestaurant).getNombre();
     }
 }

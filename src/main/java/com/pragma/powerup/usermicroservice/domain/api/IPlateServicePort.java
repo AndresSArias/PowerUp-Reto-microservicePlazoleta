@@ -13,4 +13,6 @@ public interface IPlateServicePort {
     PlateEntity updateStatePlate (Plate plate, String ownerDNI);
 
     Page<Plate> getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size);
+
+    String getNameRestaurantByNit (String nitRestaurant);
 }

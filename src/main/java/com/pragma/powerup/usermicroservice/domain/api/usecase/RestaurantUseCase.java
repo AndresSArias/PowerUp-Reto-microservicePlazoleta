@@ -67,6 +67,13 @@ public class RestaurantUseCase implements IRestaurantServicePort {
 
     @Override
     public Page<Restaurant> getAllRestaurants(int page, int size) {
+        if (size < 1){
+            throw  new LenghtSizeException();
+        }
+        if (page < 0){
+            throw  new LenghtPageException();
+        }
+
         final Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "nombre"));
         return restaurantPersistencePort.getAllRestaurants(pageable);
     }

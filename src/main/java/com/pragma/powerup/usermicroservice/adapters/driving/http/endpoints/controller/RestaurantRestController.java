@@ -61,7 +61,7 @@ public class RestaurantRestController {
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/getRestaurants/{size}/{page}")
-    public ResponseEntity<RestaurantHCIPage> getAllRestaurants(@PathVariable String size, @PathVariable String page) {
+    public ResponseEntity<RestaurantHCIPage> getAllRestaurants(@PathVariable int size, @PathVariable int page) {
         return ResponseEntity.ok(restaurantHandler.getAllRestaurant(page,size));
     }
 

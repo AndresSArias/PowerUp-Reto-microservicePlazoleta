@@ -57,14 +57,14 @@ public class PlateMysqlAdapter implements IPlatePersistencePort {
             throw new NoRestaurantFoundException();
         }
         if (nameCategory.equals("All")){
-            plateEntityPage = plateRepository.findAllByRestaurantEntity(restaurantEntity.get());
+            plateEntityPage = plateRepository.findAllByRestaurantEntity(restaurantEntity.get(),pageable);
             System.out.print(plateEntityPage);
         }else{
             Optional<CategoryEntity> categoryEntity = categoryRepository.findByName(nameCategory);
             if(!categoryEntity.isPresent()){
                 throw new NoCategoryFoundException();
             }else{
-                plateEntityPage = plateRepository.findAllByRestaurantEntityAndCategoryEntity(restaurantEntity.get(),categoryEntity.get());
+                plateEntityPage = plateRepository.findAllByRestaurantEntityAndCategoryEntity(restaurantEntity.get(),categoryEntity.get(),pageable);
                 System.out.print(plateEntityPage);
             }
         }

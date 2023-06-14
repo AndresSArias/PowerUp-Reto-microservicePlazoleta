@@ -34,8 +34,8 @@ public class RestaurantHandlerImpl implements IRestaurantHandler {
     }
 
     @Override
-    public RestaurantHCIPage getAllRestaurant(String page, String size) {
-        Page<RestaurantResponseDto> restaurantResponseDto = restaurantResponseMapper.toResponsePage(restaurantServicePort.getAllRestaurants(Integer.parseInt(page), Integer.parseInt(size)));
+    public RestaurantHCIPage getAllRestaurant(int page, int size) {
+        Page<RestaurantResponseDto> restaurantResponseDto = restaurantResponseMapper.toResponsePage(restaurantServicePort.getAllRestaurants(page, size));
         return restaurantResponseMapper.toResponseHCIPage(restaurantResponseDto);
     }
 

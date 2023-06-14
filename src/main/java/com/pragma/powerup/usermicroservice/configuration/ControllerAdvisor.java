@@ -125,4 +125,16 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NO_ALLOWED_OWNER_UPDATE_PLATE_MESSAGE));
     }
 
+
+    @ExceptionHandler(LenghtSizeException.class)
+    public ResponseEntity<Map<String,String>> handleLenghtSizeException (LenghtSizeException lenghtSizeException){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ILLEGAL_ARGUMENT_SIZE_PAGE_MESSAGE));
+    }
+    @ExceptionHandler(LenghtPageException.class)
+    public ResponseEntity<Map<String,String>> handleLenghtPageException (LenghtPageException lenghtPageException){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ILLEGAL_ARGUMENT_INDEX_PAGE_MESSAGE));
+    }
+
 }

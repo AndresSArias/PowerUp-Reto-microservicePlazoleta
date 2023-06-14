@@ -27,6 +27,8 @@ public class Constants {
     public static final String PLATE_UPDATED_MESSAGE = "Plate update successfully";
     public static final String PLATE_NO_BELONG_RESTAURANT_MESSAGE = "The plate does not belong to the restaurant nit sent with requested petition";
     public static final String NO_ALLOWED_OWNER_UPDATE_PLATE_MESSAGE = "The owner who is trying to update the plate, does not have permissions to update that plate.";
+    public static final String ILLEGAL_ARGUMENT_SIZE_PAGE_MESSAGE = "Page size must not be less than one";
+    public static final String ILLEGAL_ARGUMENT_INDEX_PAGE_MESSAGE = "Page index must not be less than zero";
 
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";

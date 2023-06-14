@@ -84,7 +84,7 @@ public class PlateRestController {
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/getPlates/{nitRestaurant}/{nameCategory}/{size}/{page}")
-    public ResponseEntity<Page<PlatesResponseDto>> getAllRestaurants(@PathVariable String nitRestaurant, @PathVariable String nameCategory, @PathVariable int size, @PathVariable int page) {
+    public ResponseEntity<PlateHCIPage> getAllRestaurants(@PathVariable String nitRestaurant, @PathVariable String nameCategory, @PathVariable int size, @PathVariable int page) {
         return ResponseEntity.ok(plateHandler.getAllSpecificPlates(nitRestaurant,nameCategory,page,size));
     }
 

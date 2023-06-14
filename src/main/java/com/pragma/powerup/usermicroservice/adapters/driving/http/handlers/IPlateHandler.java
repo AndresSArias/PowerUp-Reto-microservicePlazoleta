@@ -16,8 +16,8 @@ public interface IPlateHandler {
 
     void updateStatePlate(PlateStateUpdateRequestDto plateUpdateRequestDto, String token);
 
-    //PlateHCIPage getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size);
+    PlateHCIPage getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size);
 
-    Page<PlatesResponseDto> getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size);
+    //Page<PlatesResponseDto> getAllSpecificPlates (String nitRestaurant, String nameCategory, int page, int size);
 
 }

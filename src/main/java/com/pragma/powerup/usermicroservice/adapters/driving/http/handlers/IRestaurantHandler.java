@@ -15,6 +15,6 @@ public interface IRestaurantHandler {
 
    String getIdRestaurant (String nitRestaurant, String token);
 
-   RestaurantHCIPage getAllRestaurant(String page, String size);
+   RestaurantHCIPage getAllRestaurant(int page, int size);
 
 }
