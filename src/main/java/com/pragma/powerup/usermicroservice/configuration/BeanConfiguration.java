@@ -1,12 +1,15 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.CategoryMysqlAdapter;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.OrderMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.PlateMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RestaurantMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.ICategoryEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IOrderEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPlateEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRestaurantEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.ICategoryRepository;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IOrderRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPlateRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
@@ -17,6 +20,7 @@ import com.pragma.powerup.usermicroservice.domain.api.usecase.CategoryUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.PlateUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.RestaurantUseCase;
 import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
+import com.pragma.powerup.usermicroservice.domain.spi.IOrderPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IPlatePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +33,12 @@ public class BeanConfiguration {
     private final IRestaurantRepository restaurantRepository;
     private final ICategoryRepository categoryRepository;
     private final IPlateRepository plateRepository;
+    private final IOrderRepository orderRepository;
 
     private final IRestaurantEntityMapper restaurantEntityMapper;
     private final ICategoryEntityMapper categoryEntityMapper;
     private final IPlateEntityMapper plateEntityMapper;
+    private final IOrderEntityMapper orderEntityMapper;
 
     private  final IUserClient userClient;
 
@@ -68,4 +74,9 @@ public class BeanConfiguration {
     public IPlateServicePort plateServicePort () {
         return  new PlateUseCase(platePersistencePort(), categoryPersistencePort(), restaurantPersistencePort());
     }
+    @Bean
+    public IOrderPersistencePort orderPersistencePort(){
+        return new OrderMysqlAdapter(orderRepository, orderEntityMapper);
+    }
+
 }
