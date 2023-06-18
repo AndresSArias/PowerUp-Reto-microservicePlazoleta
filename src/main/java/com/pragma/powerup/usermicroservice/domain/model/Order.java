@@ -1,17 +1,16 @@
 package com.pragma.powerup.usermicroservice.domain.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Order {
     private Long id;
     private String idClient;
-    private LocalDate date;
+    private LocalDateTime date;
     private String state;
-
     private String idChef;
     private Restaurant restaurant;
 
-    public Order(Long id, String idClient, LocalDate date, String state, String idChef, Restaurant restaurant) {
+    public Order(Long id, String idClient, LocalDateTime date, String state, String idChef, Restaurant restaurant) {
         this.id = id;
         this.idClient = idClient;
         this.date = date;
@@ -36,11 +35,11 @@ public class Order {
         this.idClient = idClient;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

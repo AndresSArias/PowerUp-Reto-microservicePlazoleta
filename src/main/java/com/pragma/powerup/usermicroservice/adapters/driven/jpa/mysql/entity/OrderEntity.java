@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
@@ -21,10 +20,10 @@ public class OrderEntity {
     @Column(nullable = false)
     private String idClient;
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
     @Column(nullable = false)
     private String state;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String idChef;
     @ManyToOne
     @JoinColumn(name = "id_restaurant", nullable = false)

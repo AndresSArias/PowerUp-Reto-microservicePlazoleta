@@ -14,9 +14,11 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositorie
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import com.pragma.powerup.usermicroservice.domain.api.ICategoryServicePort;
+import com.pragma.powerup.usermicroservice.domain.api.IOrderServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IPlateServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.CategoryUseCase;
+import com.pragma.powerup.usermicroservice.domain.api.usecase.OrderUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.PlateUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.RestaurantUseCase;
 import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
@@ -77,6 +79,10 @@ public class BeanConfiguration {
     @Bean
     public IOrderPersistencePort orderPersistencePort(){
         return new OrderMysqlAdapter(orderRepository, orderEntityMapper);
+    }
+    @Bean
+    public IOrderServicePort orderServicePort(){
+        return new OrderUseCase(orderPersistencePort(), restaurantPersistencePort());
     }
 
 }

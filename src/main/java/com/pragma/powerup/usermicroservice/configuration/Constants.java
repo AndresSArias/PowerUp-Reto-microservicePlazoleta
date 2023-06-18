@@ -20,6 +20,7 @@ public class Constants {
     public static final String NAME_RESTAURANT_EXCEPTION = "The name of restaurant cant be only numbers";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
     public static final String PLATE_CREATED_MESSAGE = "Plate created successfully";
+    public static final String ORDER_CREATED_MESSAGE = "Order created successfully, awaits the call for delivery";
     public static final String NO_CATEGORY_FOUND_MESSAGE = "No category found for the name send with requested petition";
     public static final String NO_RESTAURANT_FOUND_MESSAGE = "No restaurant found for the nit send with requested petition";
     public static final String NO_PLATE_FOUND_MESSAGE = "No plate found for the idPlate send with requested petition";
@@ -29,6 +30,7 @@ public class Constants {
     public static final String NO_ALLOWED_OWNER_UPDATE_PLATE_MESSAGE = "The owner who is trying to update the plate, does not have permissions to update that plate.";
     public static final String ILLEGAL_ARGUMENT_SIZE_PAGE_MESSAGE = "Page size must not be less than one";
     public static final String ILLEGAL_ARGUMENT_INDEX_PAGE_MESSAGE = "Page index must not be less than zero";
+    public static final String ILLEGAL_SIZE_OF_PLATES_IN_ORDEN_MESSAGE = "TThe dishes with their quantities entered in the order have a problem, please try again with the correct number of dishes and their corresponding quantity.";
 
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
