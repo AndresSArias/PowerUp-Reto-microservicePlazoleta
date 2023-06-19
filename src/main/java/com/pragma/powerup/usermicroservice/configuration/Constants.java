@@ -31,7 +31,9 @@ public class Constants {
     public static final String ILLEGAL_ARGUMENT_SIZE_PAGE_MESSAGE = "Page size must not be less than one";
     public static final String ILLEGAL_ARGUMENT_INDEX_PAGE_MESSAGE = "Page index must not be less than zero";
     public static final String ILLEGAL_SIZE_OF_PLATES_IN_ORDEN_MESSAGE = "TThe dishes with their quantities entered in the order have a problem, please try again with the correct number of dishes and their corresponding quantity.";
+    public static final String NON_RESTAURANT_PLATE_MESSAGE = "Some of the plates requered do not belong to the restaurant with nit requered.";
 
+    public static final String CLIENTE_HAS_ACTIVE_ORDER_MESSAGE = "The client no can make this order, beacause has a other order active.";
     public static final String ROLES = "roles";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";

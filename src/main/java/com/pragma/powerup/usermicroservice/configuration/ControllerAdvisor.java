@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.ClientHasActiveOrderException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoCategoryFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoRestaurantFoundException;
@@ -139,5 +140,19 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String,String>> handleIdPlatesQuatityPlatesException (IdPlatesQuatityPlatesException idPlatesQuatityPlatesException){
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ILLEGAL_SIZE_OF_PLATES_IN_ORDEN_MESSAGE));
+    }
+
+
+    @ExceptionHandler(NonRestaurantPlateException.class)
+    public ResponseEntity<Map<String,String>> handleNonRestaurantPlateException (NonRestaurantPlateException nonRestaurantPlateException){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NON_RESTAURANT_PLATE_MESSAGE));
+    }
+
+
+    @ExceptionHandler(ClientHasActiveOrderException.class)
+    public ResponseEntity<Map<String,String>> handleClientHasActiveOrderException (ClientHasActiveOrderException clientHasActiveOrderException){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, CLIENTE_HAS_ACTIVE_ORDER_MESSAGE));
     }
 }

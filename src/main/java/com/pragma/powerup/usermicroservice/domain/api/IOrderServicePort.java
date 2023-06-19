@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface IOrderServicePort {
 
-    OrderEntity saveOrder(Order order, Set<Long> idPlates, List<Integer> quantityPlates);
+    Order saveOrder(Order order, Set<Long> idPlates, List<Integer> quantityPlates);
 }

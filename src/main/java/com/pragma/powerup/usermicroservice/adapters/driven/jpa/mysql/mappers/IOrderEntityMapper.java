@@ -12,6 +12,6 @@ import org.mapstruct.ReportingPolicy;
 public interface IOrderEntityMapper {
     @Mapping(target = "restaurant.id", source = "restaurantEntity.id")
     Order toOrder (OrderEntity orderEntity);
-    @Mapping(target = "restaurantEntity.id", source = "restaurant")
+    @Mapping(target = "restaurantEntity.id", source = "restaurant.id")
     OrderEntity toOrderEntity (Order order);
 }

@@ -47,7 +47,7 @@ public class MainSecurity {
         http.cors().and().csrf().disable()
                 .authorizeRequests(requests -> requests
                         .requestMatchers("/auth/refresh","/category/getAll","/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/health").permitAll()
-                        .requestMatchers("/restaurant/getRestaurants").hasRole("CUSTOMER")
+                        .requestMatchers("/restaurant/getRestaurants","/order/makeOrder").hasRole("CUSTOMER")
                         .requestMatchers("/plate/createPlate","/plate/updatePlate", "/restaurant/getIdRestaurant/{nitRestaurant}", "/plate/updateStatePlate").hasRole("OWNER")
                         .requestMatchers("/restaurant/createRestaurant").hasRole("ADMIN")
                         .anyRequest().authenticated()

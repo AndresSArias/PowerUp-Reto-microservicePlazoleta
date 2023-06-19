@@ -22,9 +22,20 @@ public interface IOrderRequestMapper {
     @Mapping(target = "restaurant.nit", source = "nitRestaurant")
     Order toOrder(String nitRestaurant, String idClient);
 
+    /*
     @Mapping(source = "idPlates", target = "idPlates", qualifiedByName = "toSetLong")
     Set<Long> toIdPlates(String idPlates);
-
+*/
+    default Set<Long> toIdPlates(String idPlates) {
+        Set<Long> idSet = new HashSet<>();
+        if (idPlates != null && !idPlates.isEmpty()) {
+            String[] idArray = idPlates.split(",");
+            for (String id : idArray) {
+                idSet.add(Long.parseLong(id));
+            }
+        }
+        return idSet;
+    }
     @Named("toSetLong")
     default Set<Long> toSetLong(String idPlates) {
 
@@ -35,9 +46,21 @@ public interface IOrderRequestMapper {
         }
         return conjunto;
     }
-
+/*
     @Mapping(source = "quantityPlates", target = "quantityPlates", qualifiedByName = "toListInteger")
     List<Integer> toQuantityPlates(String quantityPlates);
+    */
+    default List<Integer> toQuantityPlates(String quantityPlates) {
+        List<Integer> quantityList = new ArrayList<>();
+        if (quantityPlates != null && !quantityPlates.isEmpty()) {
+            String[] quantityArray = quantityPlates.split(",");
+            for (String quantity : quantityArray) {
+                quantityList.add(Integer.parseInt(quantity));
+            }
+        }
+        return quantityList;
+    }
+
 
     @Named("toListInteger")
     default List<Integer> toListInteger(String quantityPlates) {

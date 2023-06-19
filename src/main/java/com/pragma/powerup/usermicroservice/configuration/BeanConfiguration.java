@@ -4,14 +4,8 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.Cat
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.OrderMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.PlateMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RestaurantMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.ICategoryEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IOrderEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPlateEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRestaurantEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.ICategoryRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IOrderRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPlateRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.*;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.*;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserClient;
 import com.pragma.powerup.usermicroservice.domain.api.ICategoryServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IOrderServicePort;
@@ -21,10 +15,7 @@ import com.pragma.powerup.usermicroservice.domain.api.usecase.CategoryUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.OrderUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.PlateUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.RestaurantUseCase;
-import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IOrderPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IPlatePersistencePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
+import com.pragma.powerup.usermicroservice.domain.spi.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,11 +27,13 @@ public class BeanConfiguration {
     private final ICategoryRepository categoryRepository;
     private final IPlateRepository plateRepository;
     private final IOrderRepository orderRepository;
+    private final IOrderPlateRepository orderPlateRepository;
 
     private final IRestaurantEntityMapper restaurantEntityMapper;
     private final ICategoryEntityMapper categoryEntityMapper;
     private final IPlateEntityMapper plateEntityMapper;
     private final IOrderEntityMapper orderEntityMapper;
+    private final IOrderPlateEntityMapper orderPlateEntityMapper;
 
     private  final IUserClient userClient;
 
@@ -78,11 +71,12 @@ public class BeanConfiguration {
     }
     @Bean
     public IOrderPersistencePort orderPersistencePort(){
-        return new OrderMysqlAdapter(orderRepository, orderEntityMapper);
+        return new OrderMysqlAdapter(orderRepository,orderPlateRepository, orderEntityMapper, orderPlateEntityMapper);
     }
+
     @Bean
     public IOrderServicePort orderServicePort(){
-        return new OrderUseCase(orderPersistencePort(), restaurantPersistencePort());
+        return new OrderUseCase(orderPersistencePort(), platePersistencePort(), restaurantPersistencePort());
     }
 
 }
